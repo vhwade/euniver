@@ -1,0 +1,17 @@
+<table class="mdl-data-table mdl-js-data-table">
+	<thead>
+		<th> Student </th>
+		<th *ngFor="let item of reportClasses">
+			<span>{{ item.start | date:'dd.MM' }}</span><br>
+			<span>{{ item.classKind }}</span>
+		</th>
+		<th>Total</th>
+	</thead>
+	<tbody>
+		<tr *ngFor="let student of students">
+			<td>{{student.lastName}}, {{student.firstName}}</td>
+			<td *ngFor="let attendance of student.attendances">{{ attendance.hours | attendance:'н':':' }}</td>
+			<td> {{ getTotal(student.attendances) }} </td>
+		</tr>
+	</tbody>
+</table>
