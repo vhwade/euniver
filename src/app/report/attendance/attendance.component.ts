@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 import * as _ from 'lodash';
+
+import { BackendService } from '../../services/backend.service';
+
+declare type ReportViewMode = 'now' | 'todate' | 'all' | 'summary';
 
 @Component({
 	selector: 'app-attendance',
@@ -8,100 +13,63 @@ import * as _ from 'lodash';
 })
 export class AttendanceComponent implements OnInit {
 
-	students: Array<Model.Student>;
-	reportClasses: Array<Model.ReportClass>;
 	discipline: Model.Discipline;
 
-	constructor() { }
+	students: Model.Student[];
+	reportClasses: Array<Model.ReportClass>;
+
+	shownReportClassIds: number[];
+
+	viewMode: ReportViewMode = 'all';
+
+	constructor(private backendService: BackendService ) { }
 
 	ngOnInit() {
-		this.reportClasses = this._getMockReportClasses();
-		this.students = this._getMockStudents();
+		this.backendService.getClasses().subscribe((data) => {
+			this.reportClasses = data;
+			this.defineShownReportClassIds();
+		});
+		this.backendService.getStudents().subscribe((data) => this.students = data);
 	}
 
 	getTotal(attendances: Array<Model.Attendance>) {
 		return _.reduce(attendances, function(sum: number, a: Model.Attendance) {
 			return sum + a.hours;
-		  }, 0);
-
+		}, 0);
 	}
 
-	private _getMockReportClasses() {
+	setChangeViewMode(currentViewMode) {
+		this.viewMode = currentViewMode;
+		this.defineShownReportClassIds();
+	}
 
-		const reportClasses: Array<Model.ReportClass> = [
-			{
-				id: 1,
-				classKind: 'lecture',
-				start: new Date(2017, 8, 2, 12, 10),
-				end: new Date(2017, 8, 2, 13, 45)
-			},
-			{
-				id: 2,
-				classKind: 'lab',
-				start: new Date(2017, 8, 4, 12, 10),
-				end: new Date(2017, 8, 4, 13, 45)
-			},
-			{
-				id: 3,
-				classKind: 'lecture',
-				start: new Date(2017, 8, 11, 15, 50),
-				end: new Date(2017, 8, 11, 17, 25)
-			},
-			{
-				id: 4,
-				classKind: 'lab',
-				start: new Date(2017, 8, 11, 17, 35),
-				end: new Date(2017, 8, 11, 19, 10)
-			},
-			{
-				id: 5,
-				classKind: 'lab',
-				start: new Date(2017, 8, 18, 17, 35),
-				end: new Date(2017, 8, 18, 19, 10)
+	isReportClassShown(id: number): boolean {
+		return this.shownReportClassIds.indexOf(id) !== -1;
+	}
+
+	defineShownReportClassIds() {
+		const now = new Date().getTime();
+
+		switch (this.viewMode) {
+			case 'now': {
+				this.shownReportClassIds = _.map(
+					_.filter(this.reportClasses, (rc) => new Date(rc.start).getTime() < now && new Date(rc.end).getTime() > now ), 'id');
 			}
-		];
-
-		return reportClasses;
-	}
-
-	private _getMockStudents() {
-
-		const students: Array<Model.Student> = [
-			{
-				id : 1,
-				firstName: 'Vasya',
-				lastName: 'Pupkin',
-				attendances: [
-					{ classId: 1, hours: 2 },
-					{ classId: 2, hours: 1 },
-					{ classId: 3, hours: 2 },
-					{ classId: 4, hours: 0 },
-					{ classId: 5, hours: 2 }
-				],
-				achievements: []
-			},
-			{
-				id : 2,
-				firstName: 'Petya',
-				lastName: 'Petrov',
-				attendances: [
-					{ classId: 1, hours: 2 },
-					{ classId: 2, hours: 2 },
-					{ classId: 3, hours: 1 },
-					{ classId: 4, hours: 2 },
-					{ classId: 5, hours: 2 }
-				],
-				achievements: []
+			break;
+			case 'todate': {
+				this.shownReportClassIds = _.map(
+					_.filter(this.reportClasses, (rc) => new Date(rc.start).getTime() < now), 'id');
 			}
-		];
-
-		return students;
+			break;
+			case 'all': {
+				this.shownReportClassIds = _.map(this.reportClasses, 'id');
+			}
+			break;
+			case 'summary': {
+				this.shownReportClassIds = [];
+			}
+			break;
+		}
 	}
 
-	private _getMockDiscipline() {
-
-		const discipline: Model.Discipline = { id: 1, name: 'Development of Web applications' };
-
-		return discipline;
-	}
 }

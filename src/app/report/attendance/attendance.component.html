@@ -1,16 +1,25 @@
+<mdl-radio name="viewMode" value="now" [ngModel]="viewMode" mdl-ripple (click)="setChangeViewMode('now')">На паре</mdl-radio>
+<mdl-radio name="viewMode" value="todate" [ngModel]="viewMode" mdl-ripple (click)="setChangeViewMode('todate')">На сегодня</mdl-radio>
+<mdl-radio name="viewMode" value="all" [ngModel]="viewMode" mdl-ripple (click)="setChangeViewMode('all')">Весь журнал</mdl-radio>
+<mdl-radio name="viewMode" value="summary" [ngModel]="viewMode" mdl-ripple (click)="setChangeViewMode('summary')">Без деталей</mdl-radio>
+
 <table class="mdl-data-table mdl-js-data-table">
 	<thead>
 		<th> Student </th>
-		<th *ngFor="let item of reportClasses">
-			<span>{{ item.start | date:'dd.MM' }}</span><br>
-			<span>{{ item.classKind }}</span>
-		</th>
+		<ng-template ngFor let-item [ngForOf]="reportClasses"> 
+			<th *ngIf="isReportClassShown(item.id)">
+				<span>{{ item.start | date:'dd.MM' }}</span><br>
+				<span>{{ item.classKind }}</span>
+			</th>
+		</ng-template>
 		<th>Total</th>
 	</thead>
 	<tbody>
 		<tr *ngFor="let student of students">
 			<td>{{student.lastName}}, {{student.firstName}}</td>
-			<td *ngFor="let attendance of student.attendances">{{ attendance.hours | attendance:'н':':' }}</td>
+			<ng-template ngFor let-attendance [ngForOf]="student.attendances"> 
+				<td *ngIf="isReportClassShown(attendance.classId)">{{ attendance.hours | attendance:'н':':' }}</td>
+			</ng-template>
 			<td> {{ getTotal(student.attendances) }} </td>
 		</tr>
 	</tbody>
