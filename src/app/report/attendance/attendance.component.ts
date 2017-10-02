@@ -50,7 +50,7 @@ export class AttendanceComponent implements OnInit {
 		switch (this.viewMode) {
 			case 'now': {
 				this.shownReportClassIds = _.map(
-					_.filter(this.reportClasses, (rc) => rc.start.getTime() < now && new rc.end.getTime() > now), 'id');
+					_.filter(this.reportClasses, (rcl) => rcl.start.getTime() < now && rcl.end.getTime() > now), 'id');
 			}
 				break;
 			case 'todate': {
