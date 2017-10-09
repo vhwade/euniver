@@ -21,9 +21,10 @@ namespace Model {
 		public achievements: Array<Achievement>;
 	}
 
-	export class Discipline {
+	export class Course {
 		public id: number;
 		public name: string;
+		public summary ?: string;
 	}
 
 	export declare type ClassKind = 'lecture' | 'practice' | 'lab' | 'exam';

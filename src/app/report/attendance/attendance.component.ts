@@ -13,7 +13,6 @@ declare type ReportViewMode = 'now' | 'todate' | 'all' | 'summary';
 })
 export class AttendanceComponent implements OnInit {
 
-	discipline: Model.Discipline;
 	students: Model.Student[];
 	reportClasses: Array<Model.ReportClass>;
 

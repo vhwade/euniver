@@ -1,0 +1,11 @@
+<p>Дисципліни</p>
+<ul>
+  <li *ngFor="let course of courses">
+	<span><strong>{{ course.name }}</strong></span> 
+	<p *ngIf="course.summary; else displayEmptySummary">
+		{{ course.summary }}
+	</p>
+  </li>
+</ul>
+
+<ng-template #displayEmptySummary><p>Анотація відсутня</p></ng-template>  

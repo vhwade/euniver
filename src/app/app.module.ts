@@ -10,13 +10,17 @@ import { AttendanceComponent } from './report/attendance/attendance.component';
 import { AttendancePipe } from './pipes/attendance.pipe';
 
 import { BackendService } from './services/backend.service';
+import { CourseListComponent } from './course-list/course-list.component';
+import { UserInfoComponent } from './layout/user-info/user-info.component';
 
 @NgModule({
 	declarations: [
 		AppComponent,
 		HeaderComponent,
 		AttendanceComponent,
-		AttendancePipe
+		AttendancePipe,
+		CourseListComponent,
+		UserInfoComponent
 	],
 	imports: [
 		BrowserModule,
