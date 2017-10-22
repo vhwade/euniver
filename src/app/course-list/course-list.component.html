@@ -1,7 +1,13 @@
-<p>Дисципліни</p>
+<p>Дисципліни:
+	<input type="checkbox" [checked]="activeOnly" (change)="filterCoursesByActiveStatus($event)">
+	<span>Відображати лише активні</span>
+</p>
 <ul>
-  <li *ngFor="let course of courses">
-	<span><strong>{{ course.name }}</strong></span> 
+  <li 	*ngFor="let course of courses"
+		  id="course-{{ course.id }}"
+		  [hidden]="!course.isActive && activeOnly"
+		  (click)="writeCourseInfo(course)">
+	<a href="#"> {{ course.name }} </a> 
 	<p *ngIf="course.summary; else displayEmptySummary">
 		{{ course.summary }}
 	</p>

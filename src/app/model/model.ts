@@ -24,6 +24,7 @@ namespace Model {
 	export class Course {
 		public id: number;
 		public name: string;
+		public isActive: boolean;
 		public summary ?: string;
 	}
 
