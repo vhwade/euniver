@@ -1,0 +1,16 @@
+i {
+	background: url('404.jpg') top left no-repeat;
+    width: 1600px;
+    height: 1600px;
+    display: block;
+    position: relative;
+}
+
+h2 { 
+	position: absolute;
+    top: 20px;
+    left: 20px;
+    color: white;
+    background-color: #000;
+    padding: 5px 15px;
+ }

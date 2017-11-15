@@ -41,6 +41,7 @@ const appRoutes: Routes = [
 	{ path: 'courses', component: CourseListComponent },
 	{ path: 'course/:id', component: CourseDetailComponent },
 	{ path: 'students', component: StudentListComponent },
+	{ path: 'page-not-found', component: NotFoundPageComponent },
 	{ path: '**', redirectTo: '/' }
 ];
 

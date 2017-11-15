@@ -10,5 +10,6 @@ export const appRoutes: Routes = [
 	{ path: 'attendance', component: AttendanceComponent },
 	{ path: 'courses', component: CourseListComponent },
 	{ path: 'students', component: StudentListComponent },
+	{ path: 'page-not-found', component: NotFoundPageComponent },
 	{ path: '**', component: NotFoundPageComponent }
 ];

@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({
@@ -24,7 +24,7 @@ export class CourseDetailComponent implements OnDestroy {
 	course: Model.Course;
 	id: number;
 
-	constructor(private activateRoute: ActivatedRoute) {
+	constructor(private activateRoute: ActivatedRoute, private router: Router ) {
 		// this.id = activateRoute.snapshot.params['id'];
 		// this.routeSubscription = activateRoute.params.subscribe(params => this.id = +params['id']);
 		this.routeSubscription = activateRoute.params.subscribe(params => this.course = this.getCourse(+params['id']));
@@ -36,7 +36,7 @@ export class CourseDetailComponent implements OnDestroy {
 				return this.courses[i];
 			}
 		}
-		return null;
+		this.router.navigate(['/page-not-found']);
 	}
 
 	ngOnDestroy() {
