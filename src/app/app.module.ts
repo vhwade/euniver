@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { MdlModule } from '@angular-mdl/core';
 
 // #region Components
@@ -34,7 +34,6 @@ import { BackendService } from './services/backend.service';
 
 // import { appRoutes } from './routes';
 
-
 const appRoutes: Routes = [
 	{ path: '', component: HomeComponent },
 	{ path: 'attendance', component: AttendanceComponent },
@@ -62,7 +61,7 @@ const appRoutes: Routes = [
 	imports: [
 		BrowserModule,
 		FormsModule,
-		HttpModule,
+		HttpClientModule,
 		MdlModule,
 		RouterModule.forRoot(appRoutes)
 	],

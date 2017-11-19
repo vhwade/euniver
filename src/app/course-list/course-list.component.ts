@@ -1,30 +1,23 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
 	selector: 'app-course-list',
 	templateUrl: './course-list.component.html',
 	styleUrls: ['./course-list.component.css']
 })
-export class CourseListComponent {
+export class CourseListComponent implements OnInit {
 
 	courses: Model.Course[];
 
 	activeOnly: boolean;
 
-	constructor() {
-
+	constructor(private http: HttpClient) {
 		this.activeOnly = true;
+	}
 
-		this.courses = [
-			{
-				id: 1,
-				name: 'Розробка Web-додатків',
-				summary: 'Дисципліна спрямована на формування у студентів теоретичних знань, практичних вмінь та навичок щодо розробки Web-додатків.',
-				isActive: true
-			},
-			{ id: 2, name: 'Цифрова фотографія', isActive: true },
-			{ id: 3, name: 'Основи програмування', isActive: false }
-		];
+	ngOnInit() {
+		this.http.get('../../assets/course-list.json').subscribe((data: Model.Course[]) => this.courses = data );
 	}
 
 	filterCoursesByActiveStatus(event) {
