@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { BackendService } from '../services/backend.service';
+
 
 @Component({
 	selector: 'app-course-list',
@@ -12,12 +13,14 @@ export class CourseListComponent implements OnInit {
 
 	activeOnly: boolean;
 
-	constructor(private http: HttpClient) {
+	constructor(private backend: BackendService) {
 		this.activeOnly = true;
 	}
 
 	ngOnInit() {
-		this.http.get('../../assets/course-list.json').subscribe((data: Model.Course[]) => this.courses = data );
+		this.backend
+		.getCourseList()
+		.subscribe((data: Model.Course[]) => this.courses = data );
 	}
 
 	filterCoursesByActiveStatus(event) {

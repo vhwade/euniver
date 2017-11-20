@@ -29,6 +29,7 @@ import { AttendancePipe } from './pipes/attendance.pipe';
 // #region Services
 
 import { BackendService } from './services/backend.service';
+import { CueService } from './services/cue.service';
 
 // #endregion
 
@@ -68,7 +69,7 @@ const appRoutes: Routes = [
 	exports: [
 		RouterModule
 	],
-	providers: [BackendService],
+	providers: [BackendService, CueService],
 	bootstrap: [AppComponent]
 })
 export class AppModule { }
