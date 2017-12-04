@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BackendService } from '../services/backend.service';
-
+import { CueService } from '../services/cue.service';
+import 'rxjs/add/operator/filter';
 
 @Component({
 	selector: 'app-course-list',
@@ -10,11 +11,18 @@ import { BackendService } from '../services/backend.service';
 export class CourseListComponent implements OnInit {
 
 	courses: Model.Course[];
+	loading: boolean = false;
 
 	activeOnly: boolean;
 
-	constructor(private backend: BackendService) {
+	constructor(
+		private backend: BackendService,
+		private cue: CueService
+	) {
 		this.activeOnly = true;
+
+		this.cue.loading$.filter((value) => value === 'courseList').subscribe((x) => this.loading = true);
+		this.cue.loaded$.filter((value) => value === 'courseList').subscribe((x) => this.loading = false);
 	}
 
 	ngOnInit() {

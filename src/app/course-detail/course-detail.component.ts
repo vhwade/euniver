@@ -24,13 +24,12 @@ export class CourseDetailComponent implements OnDestroy {
 	course: Model.Course;
 	id: number;
 
-	constructor(private activateRoute: ActivatedRoute, private router: Router ) {
-		// this.id = activateRoute.snapshot.params['id'];
-		// this.routeSubscription = activateRoute.params.subscribe(params => this.id = +params['id']);
-		this.routeSubscription = activateRoute.params.subscribe(params => this.course = this.getCourse(+params['id']));
+	constructor(protected activateRoute: ActivatedRoute, protected router: Router ) {
+		this.routeSubscription = activateRoute.params.subscribe(params => this.course = this.getCourse(params['id']));
 	}
 
-	getCourse(id: number): Model.Course {
+	getCourse(paramId: string): Model.Course {
+		const id = +paramId;
 		for (let i = 0; i < this.courses.length; i++) {
 			if ( this.courses[i].id === id ) {
 				return this.courses[i];
@@ -42,5 +41,4 @@ export class CourseDetailComponent implements OnDestroy {
 	ngOnDestroy() {
 		this.routeSubscription.unsubscribe();
 	}
-
 }

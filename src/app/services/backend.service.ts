@@ -2,13 +2,16 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import { CueService } from './cue.service';
 
 @Injectable()
 export class BackendService {
 
-	constructor( private http: HttpClient ) { }
+	constructor( private http: HttpClient, private cue: CueService ) { }
 
 	public getCourseList(): Observable<Model.Course[]> {
+		this.cue.loading('courseList');
+
 		return this.http
 		.get('../../assets/course-list.json')
 		.map((data) => {
@@ -24,6 +27,8 @@ export class BackendService {
 					isActive: crs['active']
 				} as Model.Course);
 			}
+
+			setTimeout(() => this.cue.loaded('courseList'), 2000);
 			return result;
 		} );
 	}

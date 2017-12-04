@@ -4,10 +4,10 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 @Injectable()
 export class CueService {
 
-	_loading = new BehaviorSubject<string>(null);
+	private _loading = new BehaviorSubject<string>(null);
 	loading$ = this._loading.asObservable();
 
-	_loaded = new BehaviorSubject<string>(null);
+	private _loaded = new BehaviorSubject<string>(null);
 	loaded$ = this._loaded.asObservable();
 
 	constructor() { }
@@ -17,7 +17,7 @@ export class CueService {
 	}
 
 	loaded(name: string) {
-		this._loading.next(name);
+		this._loaded.next(name);
 	}
 
 }

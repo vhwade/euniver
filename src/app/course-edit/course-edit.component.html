@@ -1,0 +1,27 @@
+<p>
+  <mdl-textfield
+    type="text" [(ngModel)]="course.name"
+    placeholder="Назва курсу" label="Назва курсу"
+    floating-label>
+  </mdl-textfield>
+</p> 
+<p>
+  <mdl-textfield
+    rows="5" maxrows="5"
+    [(ngModel)]="course.summary" label="Анотація"
+    floating-label></mdl-textfield>  
+</p>
+<p>
+  <mdl-checkbox 
+    [mdl-ripple]="true"
+    [(ngModel)]="course.isActive">
+    Активна
+  </mdl-checkbox>
+</p>
+
+<button mdl-button mdl-button-type="raised" mdl-colored="primary" mdl-ripple (click)="save()">
+  Зберегти
+</button>
+<button mdl-button mdl-button-type="raised" mdl-colored mdl-ripple (click)="cancel()">
+  Відмінити
+</button>

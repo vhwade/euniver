@@ -1,0 +1,23 @@
+<form #frmCreateCourse="ngForm" novalidate>
+  <div>
+    <label>Назва курсу</label>
+    <input type="text" [(ngModel)]="course.name" name="name" placeholder="Назва курсу" required
+      (blur)="onNameChanging()" #courseName="ngModel"/>
+    <span [hidden]="courseName.valid || courseName.untouched" class="alert alert-danger">Поле є обов&apos;язковим</span>
+  </div>
+  <div>
+      <label>Анотація</label>
+      <textarea rows="5" maxrows="5" [(ngModel)]="course.summary" name="summary" ></textarea>
+  </div>
+  <div>
+    <input type="checkbox" checked="true" [(ngModel)]="course.isActive" name="isActive">
+    <span>Активна</span> 
+  </div>
+
+  <button (click)="save()" [disabled]="frmCreateCourse.invalid">
+    Зберегти
+  </button>
+  <button (click)="cancel()">
+    Відмінити
+  </button>
+</form>

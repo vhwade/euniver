@@ -1,13 +1,27 @@
-<p>Дисципліни:
-	<input type="checkbox" [checked]="activeOnly" (change)="filterCoursesByActiveStatus($event)">
-	<span>Відображати лише активні</span>
+<p *ngIf="loading">Loading...</p>
+
+<p>Дисципліни 
+	<span class="menu-item">
+			<a [routerLink]="['/course', 'create']">
+				<i class="material-icons">note_add</i>
+			</a>
+	</span>	
+	<span class="menu-item">
+			<input type="checkbox" [checked]="activeOnly" (change)="filterCoursesByActiveStatus($event)">
+			<span>Відображати лише активні</span>
+	</span>
 </p>
+
 <ul>
   <li *ngFor="let course of courses"
 		  id="course-{{ course.id }}"
 		  [hidden]="!course.isActive && activeOnly"
 		  (click)="writeCourseInfo(course)">
-	<a [routerLink]="['/course', course.id]"> {{ course.name }} </a> 
+	<a [routerLink]="['/course', course.id]"> {{ course.name }} </a>
+	<a [routerLink]="['/course/edit', course.id]">
+		<i class="material-icons">edit</i>
+	</a>
+		
 	<p *ngIf="course.summary; else displayEmptySummary">
 		{{ course.summary }}
 	</p>

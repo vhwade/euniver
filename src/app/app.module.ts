@@ -9,7 +9,9 @@ import { MdlModule } from '@angular-mdl/core';
 
 import { AppComponent } from './app.component';
 import { AttendanceComponent } from './report/attendance/attendance.component';
+import { CourseCreateComponent } from './course-create/course-create.component';
 import { CourseDetailComponent } from './course-detail/course-detail.component';
+import { CourseEditComponent } from './course-edit/course-edit.component';
 import { CourseListComponent } from './course-list/course-list.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { HomeComponent } from './layout/home/home.component';
@@ -39,6 +41,8 @@ const appRoutes: Routes = [
 	{ path: '', component: HomeComponent },
 	{ path: 'attendance', component: AttendanceComponent },
 	{ path: 'courses', component: CourseListComponent },
+	{ path: 'course/create', component: CourseCreateComponent },
+	{ path: 'course/edit/:id', component: CourseEditComponent },
 	{ path: 'course/:id', component: CourseDetailComponent },
 	{ path: 'students', component: StudentListComponent },
 	{ path: 'page-not-found', component: NotFoundPageComponent },
@@ -50,6 +54,8 @@ const appRoutes: Routes = [
 		AppComponent,
 		AttendanceComponent,
 		AttendancePipe,
+		CourseCreateComponent,
+		CourseEditComponent,
 		CourseDetailComponent,
 		CourseListComponent,
 		HeaderComponent,
@@ -57,7 +63,9 @@ const appRoutes: Routes = [
 		NotFoundPageComponent,
 		StudentDetailComponent,
 		StudentListComponent,
-		UserInfoComponent,
+		UserInfoComponent
+,
+    CourseCreateComponent
 ],
 	imports: [
 		BrowserModule,
